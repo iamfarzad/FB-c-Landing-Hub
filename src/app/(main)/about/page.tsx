@@ -8,7 +8,7 @@ export default function AboutPage() {
     <>
       <SectionWrapper className="bg-secondary/30 !pt-12 md:!pt-20">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About FarzadBayat.ai</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">About F.B/c</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Driving innovation and business transformation through the strategic application of Artificial Intelligence.
           </p>

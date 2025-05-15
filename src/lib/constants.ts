@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Sparkles, Briefcase, MessageSquare } from 'lucide-react';
 
-export const SITE_NAME = "FarzadBayat.ai";
+export const SITE_NAME = "F.B/c";
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 
 export type NavLink = {

@@ -1,4 +1,4 @@
-# **App Name**: FarzadBayat.ai Landing Hub
+# **App Name**: F.B/c Landing Hub
 
 ## Core Features:
 

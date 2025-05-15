@@ -133,7 +133,7 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col h-full bg-card shadow-xl rounded-lg overflow-hidden">
       <div className="p-4 border-b">
-        <h3 className="font-semibold text-lg text-center">Chat with FarzadBayat.ai Assistant</h3>
+        <h3 className="font-semibold text-lg text-center">Chat with F.B/c Assistant</h3>
       </div>
       <ScrollArea className="flex-1 p-4 space-y-4" ref={scrollAreaRef}>
         {messages.map((msg) => (

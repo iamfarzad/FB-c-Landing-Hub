@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FarzadBayat.ai',
+  title: 'F.B/c',
   description: 'AI Consulting & Workshops by Farzad Bayat',
 };
 

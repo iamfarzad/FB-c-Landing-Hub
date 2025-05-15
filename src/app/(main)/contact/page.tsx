@@ -32,7 +32,7 @@ export default function ContactPage() {
                 <Mail className="h-6 w-6 mr-4 mt-1 text-primary shrink-0" />
                 <div>
                   <h3 className="font-medium">Email</h3>
-                  <a href="mailto:info@farzadbayat.ai" className="text-muted-foreground hover:text-primary">info@farzadbayat.ai</a>
+                  <a href="mailto:info@F.B/c" className="text-muted-foreground hover:text-primary">info@F.B/c</a>
                 </div>
               </div>
               <div className="flex items-start">

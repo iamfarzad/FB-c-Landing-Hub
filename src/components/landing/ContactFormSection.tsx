@@ -15,7 +15,7 @@ export default function ContactFormSection() {
           <div className="space-y-4">
             <div className="flex items-center">
               <Mail className="h-5 w-5 mr-3 text-primary" />
-              <a href="mailto:info@farzadbayat.ai" className="hover:text-primary">info@farzadbayat.ai</a>
+              <a href="mailto:info@F.B/c" className="hover:text-primary">info@F.B/c</a>
             </div>
             <div className="flex items-center">
               <Phone className="h-5 w-5 mr-3 text-primary" />

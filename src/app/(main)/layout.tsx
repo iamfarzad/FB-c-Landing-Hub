@@ -5,7 +5,7 @@ import ChatbotWidget from '@/components/layout/ChatbotWidget';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'FarzadBayat.ai - AI Consulting & Workshops',
+  title: 'F.B/c - AI Consulting & Workshops',
   description: 'Unlock the power of AI for your business with Farzad Bayat.',
 };
 
