@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
-import {Geist, Geist_Mono} from 'next/font/google';
+import {Geist, Geist_Mono, Inconsolata} from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster'; // Ensure Toaster is imported if not already managed by a sub-layout
+import { Toaster } from '@/components/ui/toaster';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+});
+
+const inconsolata = Inconsolata({
+  variable: '--font-inconsolata',
+  subsets: ['latin'],
+  weight: ['400', '700'], // Adjust weights as needed
 });
 
 export const metadata: Metadata = {
@@ -25,12 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${inconsolata.variable} font-sans antialiased`}>
+        {/* Apply Inconsolata as the primary font via its variable in globals.css or here directly */}
+        {/* Or, if Inconsolata should be default, ensure 'font-sans' uses its variable */}
         {children}
-        {/* If Toaster is not in a nested layout that always renders, it can be here. 
-            However, it's better placed in the (main)/layout.tsx to be within the context of pages that might use it.
-            The current (main)/layout.tsx already includes it.
-        */}
       </body>
     </html>
   );
