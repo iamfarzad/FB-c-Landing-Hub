@@ -49,6 +49,11 @@
     --sidebar-accent-foreground: oklch(0.205 0.01 265);
     --sidebar-border: oklch(0.918 0.005 250);
     --sidebar-ring: oklch(0.65 0.25 255);
+
+    /* Variables for ParticleOrb based on brand-orange */
+    --brand-orange-hsl-values: 27, 100%, 55%; /* Approx HSL for oklch(0.686 0.219 41.6) */
+    --brand-orange-glow-light: hsla(var(--brand-orange-hsl-values), 0.20);
+    --brand-orange-ring-light: hsla(var(--brand-orange-hsl-values), 0.06);
   }
 
   .dark {
@@ -95,6 +100,10 @@
     --sidebar-accent-foreground: oklch(0.965 0.002 265);
     --sidebar-border: oklch(0.264 0.007 265);
     --sidebar-ring: oklch(0.65 0.25 255);
+
+    /* Variables for ParticleOrb based on brand-orange */
+    --brand-orange-glow-dark: hsla(var(--brand-orange-hsl-values), 0.30);
+    --brand-orange-ring-dark: hsla(var(--brand-orange-hsl-values), 0.10);
   }
 }
 
