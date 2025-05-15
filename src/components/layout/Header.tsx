@@ -16,115 +16,119 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
-
-// Assuming Dock and DockIcon will be available here after running the npx command:
-// npx shadcn@latest add "https://magicui.design/r/dock"
-// If these components are not found, you'll need to ensure they are correctly installed.
+import { NAV_LINKS, SITE_NAME, SEARCH_ICON, THEME_ICON } from '@/lib/constants'; // Assuming SEARCH_ICON & THEME_ICON are for dock
 import { Dock, DockIcon } from "@/registry/magicui/dock"; 
-// Fallback if Dock components are not found (remove this if Dock is installed)
-// const Dock = ({ children, className }: { children: React.ReactNode, className?: string }) => <div className={cn("flex gap-2 p-2 bg-background/50 border rounded-lg fixed bottom-4 left-1/2 -translate-x-1/2", className)}>{children}</div>;
-// const DockIcon = ({ children, className }: { children: React.ReactNode, className?: string }) => <div className={cn("p-2", className)}>{children}</div>;
-
+import { Menu } from "lucide-react"; // For mobile menu icon
 
 export default function Header() {
   const pathname = usePathname();
-  const { theme } = useTheme(); // Get theme for ModeToggle icon, if needed directly here, though ModeToggle handles it.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Site Logo/Name component for the Dock
+  // Site Logo Component
   const SiteLogo = () => (
-    <DockIcon>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Link
-            href="/"
-            aria-label={SITE_NAME}
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "icon" }),
-              "size-10 rounded-full flex items-center justify-center gap-1.5 text-base font-semibold" // Adjusted size
-            )}
-          >
-            <span className="h-2 w-2 bg-primary rounded-full animate-pulse shrink-0"></span> {/* Adjusted dot size */}
-            {SITE_NAME}
-          </Link>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">
-          <p>{SITE_NAME} - Home</p>
-        </TooltipContent>
-      </Tooltip>
-    </DockIcon>
+    <Link
+      href="/"
+      aria-label={SITE_NAME}
+      className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors"
+    >
+      <span className="h-2.5 w-2.5 bg-primary rounded-full animate-pulse shrink-0"></span>
+      {SITE_NAME}
+    </Link>
   );
 
   if (!mounted) {
-    // To prevent hydration mismatch with theme-dependent icons or logic
-    // You could render a placeholder or null
+    // Basic placeholder to avoid layout shifts, especially for fixed elements
     return (
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4">
-        <div className="flex h-14 items-center gap-2 rounded-full border bg-background/70 px-3 py-2 backdrop-blur-md dark:bg-neutral-900/70">
-          {/* Placeholder structure to avoid layout shifts */}
-          <div className="size-10 rounded-full bg-muted/50 animate-pulse"></div>
-          <Separator orientation="vertical" className="h-full hidden sm:block mx-1" />
-          {NAV_LINKS.slice(0,3).map((item) => (
-             <div key={item.label} className="size-10 rounded-full bg-muted/50 animate-pulse"></div>
-          ))}
-           <Separator orientation="vertical" className="h-full hidden sm:block mx-1" />
-           <div className="size-10 rounded-full bg-muted/50 animate-pulse"></div>
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 h-16 bg-background/70 backdrop-blur-md">
+        <div className="flex items-center gap-2 text-lg font-semibold">
+           <span className="h-2.5 w-2.5 bg-muted rounded-full"></span>
+           <span className="w-16 h-6 bg-muted rounded"></span>
         </div>
+        <div className="h-10 w-48 bg-muted rounded-full"></div> {/* Placeholder for dock */}
       </header>
     );
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4"> {/* Positioned at top center */}
-      <TooltipProvider>
-        <Dock direction="top" className="!h-14 py-2"> {/* Dock direction top, adjusted height and padding */}
-          <SiteLogo />
-          
-          <Separator orientation="vertical" className="h-full hidden sm:block mx-1" />
-
-          {NAV_LINKS.map((item) => (
-            <DockIcon key={item.label}>
+    <>
+      {/* Desktop Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between p-4">
+        <SiteLogo />
+        <TooltipProvider delayDuration={0}>
+          <Dock 
+            direction="top" 
+            className="mx-auto !h-14 py-2 px-3 bg-card/80 backdrop-blur-lg border border-border shadow-md" // Centered Dock, custom style
+            magnification={35} // Reduced magnification
+            distance={40}      // Reduced distance for magnification effect
+          >
+            {NAV_LINKS.map((item) => (
+              <DockIcon key={item.label}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href={item.href}
+                      aria-label={item.label}
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "icon" }),
+                        "size-10 rounded-full", // Adjusted icon container size
+                        pathname === item.href && "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
+                        pathname === "/" && item.href === "/" && "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" // Specific for Home
+                      )}
+                    >
+                      <item.icon className="size-5" /> {/* Icon size */}
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>{item.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </DockIcon>
+            ))}
+            
+            <Separator orientation="vertical" className="h-full mx-1" />
+            
+            {/* Placeholder for Search Icon - can be functional later */}
+            <DockIcon>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link
-                    href={item.href}
-                    aria-label={item.label}
-                    className={cn(
-                      buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-10 rounded-full", // Adjusted icon container size
-                      pathname === item.href && "bg-accent text-accent-foreground"
-                    )}
-                  >
-                    <item.icon className="size-5" /> {/* Icon size */}
-                  </Link>
+                  <Button variant="ghost" size="icon" className="size-10 rounded-full">
+                    <SEARCH_ICON className="size-5" />
+                  </Button>
                 </TooltipTrigger>
-                <TooltipContent side="bottom"> {/* Tooltip below */}
-                  <p>{item.label}</p>
+                <TooltipContent side="bottom">
+                  <p>Search</p>
                 </TooltipContent>
               </Tooltip>
             </DockIcon>
-          ))}
-          
-          <Separator orientation="vertical" className="h-full hidden sm:block mx-1" />
-          
-          <DockIcon>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                {/* ModeToggle itself applies size-icon. Wrapper DockIcon gives hover/magnification. */}
-                <ModeToggle className="rounded-full size-10" variant="ghost" size="icon"/>
-              </TooltipTrigger>
-              <TooltipContent side="bottom"> {/* Tooltip below */}
-                <p>Toggle Theme</p>
-              </TooltipContent>
-            </Tooltip>
-          </DockIcon>
-        </Dock>
-      </TooltipProvider>
-    </header>
+
+            <DockIcon>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <ModeToggle className="rounded-full size-10" variant="ghost" size="icon"/>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p>Toggle Theme</p>
+                </TooltipContent>
+              </Tooltip>
+            </DockIcon>
+          </Dock>
+        </TooltipProvider>
+        {/* Invisible spacer to help balance the justify-between if logo width is significant */}
+        <div className="w-auto" style={{ visibility: 'hidden' }}><SiteLogo /></div>
+      </header>
+
+      {/* Mobile Header Placeholder */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex md:hidden items-center justify-between p-4 h-16 bg-background/90 backdrop-blur-md border-b">
+        <SiteLogo />
+        <Button variant="ghost" size="icon">
+          <Menu className="size-6" />
+          <span className="sr-only">Open menu</span>
+        </Button>
+      </header>
+    </>
   );
 }

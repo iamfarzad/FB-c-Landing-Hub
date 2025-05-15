@@ -2,7 +2,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Sparkles, Briefcase, MessageSquare, LayoutDashboard, Lightbulb, BookOpen, Pencil, Users, Award, CalendarDays, CheckCircle } from 'lucide-react';
 
-export const SITE_NAME = "F.B/c";
+export const SITE_NAME = "F.B/c"; // Ensure SITE_NAME is correct
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 
 export type NavLink = {
@@ -12,7 +12,7 @@ export type NavLink = {
 };
 
 export const WORKSHOPS_ICON = BookOpen;
-export const RECOMMENDATIONS_ICON = Lightbulb;
+export const RECOMMENDATIONS_ICON = Sparkles;
 export const AI_DEMO_ICON = Bot;
 
 export const NAV_LINKS: NavLink[] = [
@@ -151,6 +151,6 @@ export const DOCK_DEMO_NAVBAR_ITEMS = [
 ];
 
 export const CHATBOT_ICON = Bot;
-export const SEARCH_ICON = Search;
-export const THEME_ICON = Sun;
+export const SEARCH_ICON = Search; // Keep SEARCH_ICON if you plan to add it to the dock
+export const THEME_ICON = Sun;   // Keep THEME_ICON if you plan to add it to the dock
 export { Sparkles, Presentation, Users, Award, CalendarDays, CheckCircle, Briefcase, MessageSquare, LayoutDashboard, Lightbulb, BookOpen, Pencil, Zap, Brain, BarChart3 };
