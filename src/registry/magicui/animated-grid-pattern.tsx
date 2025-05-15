@@ -3,7 +3,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface AnimatedGridPatternProps {
   numSquares?: number;
@@ -16,9 +16,9 @@ interface AnimatedGridPatternProps {
 
 export function AnimatedGridPattern({
   numSquares = 30,
-  maxOpacity = 0.1, // Default from demo
-  duration = 3,     // Default from demo
-  repeatDelay = 1,  // Default from demo
+  maxOpacity = 0.5,
+  duration = 3,
+  repeatDelay = 1,
   className,
   gridCellClassName,
 }: AnimatedGridPatternProps) {
@@ -29,32 +29,37 @@ export function AnimatedGridPattern({
   }, []);
 
   const squares = useMemo(() => {
+    if (!mounted) return []; // Avoid Math.random on server for consistency
     return Array.from({ length: numSquares }).map((_, i) => (
       <motion.div
         key={i}
         className={cn(
-            "bg-current rounded-md", // Use current color and make them squares
-            gridCellClassName
+          "rounded-md bg-current", // Squares will take the current text color
+          gridCellClassName,
         )}
         initial={{ opacity: 0 }}
         animate={{
-          opacity: [0, Math.random() * maxOpacity, 0], // Fade in and out
+          opacity: [0, Math.random() * maxOpacity, 0],
         }}
         transition={{
           duration: duration + Math.random() * (duration / 2), // Randomize duration slightly
-          repeat: Number.POSITIVE_INFINITY,
+          repeat: Infinity,
           delay: Math.random() * repeatDelay + (i * 0.05), // Stagger start times
           ease: "easeInOut",
         }}
         style={{
-            width: `${Math.random() * 1.5 + 0.5}rem`, // Random width for variety
-            height: `${Math.random() * 1.5 + 0.5}rem`, // Random height for variety
+          // Randomize size for a more dynamic grid
+          width: `${Math.random() * 1.5 + 0.5}rem`, 
+          height: `${Math.random() * 1.5 + 0.5}rem`,
         }}
       />
     ));
-  }, [numSquares, maxOpacity, duration, repeatDelay, gridCellClassName]);
+  }, [mounted, numSquares, maxOpacity, duration, repeatDelay, gridCellClassName]);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    // Return null or a placeholder during SSR to prevent hydration errors
+    return null;
+  }
 
   return (
     <div
