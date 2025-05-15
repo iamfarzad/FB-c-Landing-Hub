@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Home, Info, Settings, Briefcase, MessageSquare, Mail, Brain, Sparkles, Bot, Presentation, Zap, BarChart3, Users, Search, Sun } from 'lucide-react';
+import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Briefcase, MessageSquare } from 'lucide-react';
 
 export const SITE_NAME = "FarzadBayat.ai";
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
@@ -7,7 +7,7 @@ export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 export type NavLink = {
   href: string;
   label: string;
-  icon: LucideIcon; // Icon is kept for mobile menu consistency
+  icon: LucideIcon; 
 };
 
 export const NAV_LINKS: NavLink[] = [
@@ -16,6 +16,12 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/about", label: "About", icon: Info },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
+
+// Icons for specific pages not in main NAV_LINKS but used elsewhere
+export const WORKSHOPS_ICON = Presentation;
+export const RECOMMENDATIONS_ICON = Sparkles; // Using Sparkles as an example
+export const AI_DEMO_ICON = Bot;
+
 
 export type Service = {
   icon: LucideIcon;
@@ -55,4 +61,7 @@ export const CASE_STUDIES_LIST: CaseStudy[] = [
   { id: "2", title: "Predictive Analytics in Healthcare", summary: "Improved patient outcomes with AI-driven predictive modeling.", imageUrl: "https://placehold.co/600x400.png", dataAiHint: "healthcare analytics" },
 ];
 
-export const CHATBOT_ICON = Bot;
+export const CHATBOT_ICON = Bot; // Exported from here
+export const SEARCH_ICON = Search;
+export const THEME_ICON = Sun;
+export { Sparkles }; // Exporting Sparkles icon for use in Recommendations page for example

@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
-import {Geist, Geist_Mono, Inconsolata} from 'next/font/google';
+import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -11,12 +11,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
-});
-
-const inconsolata = Inconsolata({
-  variable: '--font-inconsolata',
-  subsets: ['latin'],
-  weight: ['400', '700'], // Adjust weights as needed
 });
 
 export const metadata: Metadata = {
@@ -31,10 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inconsolata.variable} font-sans antialiased`}>
-        {/* Apply Inconsolata as the primary font via its variable in globals.css or here directly */}
-        {/* Or, if Inconsolata should be default, ensure 'font-sans' uses its variable */}
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
