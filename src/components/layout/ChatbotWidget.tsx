@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import ChatInterface from '@/components/chatbot/ChatInterface';
-import { CHATBOT_ICON as ChatbotIcon, MessageSquarePlus, X } from 'lucide-react';
+import { MessageSquarePlus, X } from 'lucide-react';
+import { CHATBOT_ICON as ChatbotIcon } from '@/lib/constants';
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
