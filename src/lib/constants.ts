@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Home, Info, Settings, Briefcase, MessageSquare, Mail, Brain, Sparkles, Bot, Presentation, Zap, BarChart3, Users } from 'lucide-react';
+import { Home, Info, Settings, Briefcase, MessageSquare, Mail, Brain, Sparkles, Bot, Presentation, Zap, BarChart3, Users, Search, Sun } from 'lucide-react';
 
 export const SITE_NAME = "FarzadBayat.ai";
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
@@ -7,16 +7,13 @@ export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 export type NavLink = {
   href: string;
   label: string;
-  icon: LucideIcon;
+  icon: LucideIcon; // Icon is kept for mobile menu consistency
 };
 
 export const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/about", label: "About", icon: Info },
   { href: "/services", label: "Services", icon: Settings },
-  { href: "/workshops", label: "Workshops", icon: Presentation },
-  { href: "/ai-demo", label: "AI Demo", icon: Brain },
-  { href: "/recommendations", label: "Recommendations", icon: Sparkles },
+  { href: "/about", label: "About", icon: Info },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 

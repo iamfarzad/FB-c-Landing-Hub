@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Zap } from 'lucide-react';
+import { Menu, Search, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Header() {
@@ -13,9 +13,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-8 flex items-center space-x-2">
-          <Zap className="h-6 w-6 text-primary" />
-          <span className="font-bold text-lg">{SITE_NAME}</span>
+        <Link href="/" className="mr-8 flex items-center" aria-label={SITE_NAME}>
+          <div className="h-7 w-7 bg-primary rounded-full"></div>
         </Link>
         <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
           {NAV_LINKS.map((link) => (
@@ -24,13 +23,23 @@ export default function Header() {
               href={link.href}
               className={cn(
                 'transition-colors hover:text-primary',
-                pathname === link.href ? 'text-primary' : 'text-foreground/60'
+                pathname === link.href ? 'text-primary underline underline-offset-4' : 'text-foreground/70 hover:text-foreground/90'
               )}
             >
               {link.label}
             </Link>
           ))}
         </nav>
+        
+        <div className="hidden md:flex items-center space-x-1 ml-auto">
+            <Button variant="ghost" size="icon" aria-label="Search">
+                <Search className="h-5 w-5 text-foreground/70" />
+            </Button>
+            <Button variant="ghost" size="icon" aria-label="Toggle theme">
+                <Sun className="h-5 w-5 text-foreground/70" />
+            </Button>
+        </div>
+
         <div className="flex flex-1 items-center justify-end space-x-4 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
