@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface ParticleOrbProps {
-  className?: string; 
+  className?: string;
 }
 
 export function ParticleOrb({ className = '' }: ParticleOrbProps) {
@@ -17,25 +17,30 @@ export function ParticleOrb({ className = '' }: ParticleOrbProps) {
     setMounted(true);
   }, []);
 
-  const orbBaseColor = 'hsl(var(--brand-orange))';
-  // Fallback values if CSS variables are not immediately available during first client render.
-  // Will be overridden by actual CSS vars once `mounted` and theme are resolved.
-  const [orbGlowColor, setOrbGlowColor] = useState('hsla(27, 100%, 55%, 0.20)');
-  const [ringColor, setRingColor] = useState('hsla(27, 100%, 55%, 0.06)');
+  // State for theme-dependent colors to ensure they update
+  const [orbBaseColor, setOrbBaseColor] = useState('var(--brand-orange)');
+  const [orbGlowColor, setOrbGlowColor] = useState('var(--brand-orange-glow-light)');
+  const [ringColor, setRingColor] = useState('var(--brand-orange-ring-light)');
 
   useEffect(() => {
     if (mounted) {
-      const newGlowColor = theme === 'dark' ? 'hsl(var(--brand-orange-glow-dark))' : 'hsl(var(--brand-orange-glow-light))';
-      const newRingColor = theme === 'dark' ? 'hsl(var(--brand-orange-ring-dark))' : 'hsl(var(--brand-orange-ring-light))';
-      setOrbGlowColor(newGlowColor);
-      setRingColor(newRingColor);
+      // Update colors based on theme from CSS variables
+      // Note: We get the computed style to ensure CSS vars are resolved
+      const computedStyle = getComputedStyle(document.documentElement);
+      setOrbBaseColor(computedStyle.getPropertyValue('--brand-orange').trim());
+      
+      if (theme === 'dark') {
+        setOrbGlowColor(computedStyle.getPropertyValue('--brand-orange-glow-dark').trim());
+        setRingColor(computedStyle.getPropertyValue('--brand-orange-ring-dark').trim());
+      } else {
+        setOrbGlowColor(computedStyle.getPropertyValue('--brand-orange-glow-light').trim());
+        setRingColor(computedStyle.getPropertyValue('--brand-orange-ring-light').trim());
+      }
     }
   }, [mounted, theme]);
 
-
   if (!mounted) {
     // Render a static placeholder to avoid layout shifts and hydration errors
-    // Ensures the container takes up space before client-side rendering.
     return <div className={cn("relative flex items-center justify-center", className)} style={{width: '16rem', height: '16rem'}} />;
   }
 
@@ -45,46 +50,45 @@ export function ParticleOrb({ className = '' }: ParticleOrbProps) {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      // Example: className might pass "w-64 h-64" (16rem)
     >
       {/* Outermost Ring */}
       <motion.div
-        className="absolute rounded-full border" // Reduced border thickness
+        className="absolute rounded-full border"
         style={{ 
           width: '100%', 
           height: '100%',
-          borderColor: ringColor, // Uses state variable for theme-awareness
-          transition: 'border-color 0.3s ease', // Smooth transition for theme change
+          borderColor: ringColor,
+          transition: 'border-color 0.3s ease',
         }}
         animate={{
-          scale: [1, 1.03, 1], // More subtle scale
-          opacity: [0.6, 0.9, 0.6], // Subtle opacity pulse
+          scale: [1, 1.05, 1, 1.08, 1],
+          opacity: [0.5, 0.8, 0.5, 0.9, 0.5],
         }}
         transition={{
-          duration: 7, // Slower, more ethereal
+          duration: 8,
           repeat: Number.POSITIVE_INFINITY,
           ease: 'easeInOut',
-          delay: 1
+          delay: 1.5
         }}
       />
       {/* Inner Ring */}
       <motion.div
         className="absolute rounded-full border"
         style={{ 
-          width: '70%', // Slightly smaller inner ring
-          height: '70%',
+          width: '75%', 
+          height: '75%',
           borderColor: ringColor,
           transition: 'border-color 0.3s ease',
         }}
         animate={{
-          scale: [1, 1.02, 1],
-          opacity: [0.5, 0.8, 0.5],
+          scale: [1, 1.03, 1, 1.06, 1],
+          opacity: [0.4, 0.7, 0.4, 0.8, 0.4],
         }}
         transition={{
-          duration: 6,
+          duration: 7,
           repeat: Number.POSITIVE_INFINITY,
           ease: 'easeInOut',
-          delay: 0.5
+          delay: 0.8
         }}
       />
       
@@ -92,23 +96,28 @@ export function ParticleOrb({ className = '' }: ParticleOrbProps) {
       <motion.div
         className="relative rounded-full" 
         style={{
-          width: '30%', // Solid orb is ~1/3 of the container (e.g., ~5.3rem if container is 16rem)
-          height: '30%',
-          backgroundColor: orbBaseColor,
-          boxShadow: `0 0 50px 20px ${orbGlowColor}`, // Adjusted glow: blur 50px, spread 20px
+          width: '40%', 
+          height: '40%',
+          backgroundColor: orbBaseColor, // Use dynamic orbBaseColor
+          boxShadow: `0 0 60px 25px ${orbGlowColor}`, // Use dynamic orbGlowColor
           transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
         }}
         animate={{
-          scale: [1, 1.06, 1], 
+          scale: [1, 1.08, 1], 
+          boxShadow: [
+            `0 0 60px 25px ${orbGlowColor}`,
+            `0 0 70px 30px ${orbGlowColor}`,
+            `0 0 60px 25px ${orbGlowColor}`,
+          ],
         }}
         transition={{
-          duration: 3, // Main orb pulse
+          duration: 3.5, 
           repeat: Number.POSITIVE_INFINITY,
           ease: 'easeInOut'
         }}
         whileHover={{ 
-          scale: 1.12, // Slightly more pronounced hover scale
-          boxShadow: `0 0 60px 30px ${orbGlowColor}` // Enhanced glow on hover
+          scale: 1.15, 
+          boxShadow: `0 0 80px 35px ${orbGlowColor}`
         }}
       />
     </motion.div>
