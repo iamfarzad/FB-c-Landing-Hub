@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Briefcase, MessageSquare } from 'lucide-react';
+import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Sparkles, Briefcase, MessageSquare } from 'lucide-react';
 
 export const SITE_NAME = "FarzadBayat.ai";
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
@@ -7,7 +7,7 @@ export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 export type NavLink = {
   href: string;
   label: string;
-  icon: LucideIcon; 
+  icon: LucideIcon;
 };
 
 export const NAV_LINKS: NavLink[] = [
@@ -64,4 +64,9 @@ export const CASE_STUDIES_LIST: CaseStudy[] = [
 export const CHATBOT_ICON = Bot; // Exported from here
 export const SEARCH_ICON = Search;
 export const THEME_ICON = Sun;
-export { Sparkles }; // Exporting Sparkles icon for use in Recommendations page for example
+// If Sparkles is intended to be exported directly from constants.ts for other modules:
+// export { Sparkles }; 
+// However, the primary use seems to be RECOMMENDATIONS_ICON, which is now correctly defined.
+// If no other module imports Sparkles directly from here, the line above can be removed.
+// For now, I'll leave it commented out to avoid potential new errors if it was intentionally exported.
+// If it was only meant for RECOMMENDATIONS_ICON, it's fine as is.
