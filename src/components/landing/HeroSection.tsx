@@ -40,33 +40,30 @@ export default function HeroSection() {
         </p>
         
         {/* Spacer to push CTAs below the visual center occupied by the orb */}
-        <div className="h-24 sm:h-28 md:h-32"></div> 
+        {/* This spacer might be adjusted or removed based on ParticleOrb's final positioning relative to the "Ask bar" */}
+        {/* <div className="h-24 sm:h-28 md:h-32"></div>  */}
 
-        <div 
-          className="flex flex-col items-center gap-6 w-full max-w-md sm:max-w-lg animate-fadeIn" 
+        {/* Frameless "Ask me anything" bar - as per the image */}
+        <button
+          onClick={handleOpenChat}
+          className="group flex items-center justify-center gap-3 text-muted-foreground hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background py-2 mb-8 animate-fadeIn"
           style={{ animationDelay: '0.8s' }}
+          aria-label="Ask me anything about AI consulting"
         >
-            {/* "Ask me anything" bar - frameless design */}
-            <button
-              onClick={handleOpenChat}
-              className="flex items-center justify-center gap-3 text-muted-foreground group transition-all duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background py-2"
-              aria-label="Ask me anything about AI consulting"
-            >
-              <span className="text-sm sm:text-base group-hover:text-primary transition-colors">Ask me anything about AI consulting</span>
-              <div className="flex items-center justify-center w-9 h-9 bg-primary rounded-full text-foreground border-2 border-foreground shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.08)] group-hover:scale-110 group-hover:shadow-primary/40 transition-all shrink-0">
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-            </button>
+          <span className="text-sm sm:text-base transition-colors">Ask me anything about AI consulting</span>
+          <div className="flex items-center justify-center w-9 h-9 bg-primary rounded-full text-foreground border-2 border-foreground shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.08)] group-hover:scale-110 group-hover:shadow-primary/40 transition-all shrink-0">
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </div>
+        </button>
 
-            <Button 
-              variant="secondary" 
-              size="lg" 
-              className="rounded-full bg-muted/70 hover:bg-muted/90 text-foreground shadow-md px-8 animate-fadeIn"
-              style={{ animationDelay: '1.0s' }} // Added animation delay for the button
-            >
-                Book Free Call
-            </Button>
-        </div>
+        <Button 
+          variant="secondary" 
+          size="lg" 
+          className="rounded-full bg-muted/70 hover:bg-muted/90 text-foreground shadow-md px-8 animate-fadeIn"
+          style={{ animationDelay: '1.0s' }}
+        >
+            Book Free Call
+        </Button>
       </div>
     </SectionWrapper>
   );
