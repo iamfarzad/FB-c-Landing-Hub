@@ -1,28 +1,49 @@
+
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_LINKS, SITE_NAME, SEARCH_ICON as SearchIcon, THEME_ICON as ThemeIcon } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, Moon } from 'lucide-react'; // Ensure Moon is imported
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
-import { Moon } from 'lucide-react'; // Import Moon for dark theme toggle
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  // Render a basic header or null until mounted to avoid hydration mismatch for theme-dependent icons
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center">
+          {/* Placeholder until theme is known */}
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-8 flex items-center" aria-label={SITE_NAME}>
-          {/* Orange circular logo */}
-          <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
-            FB
-          </div>
+        <Link href="/" className="mr-6 flex items-center" aria-label={SITE_NAME}>
+          <span className="h-2.5 w-2.5 bg-primary rounded-full mr-2 animate-pulse"></span>
+          <span className="font-semibold text-lg tracking-tight">{SITE_NAME}</span>
         </Link>
-        <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex flex-1 items-center justify-center space-x-5 text-sm font-medium">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -37,16 +58,21 @@ export default function Header() {
           ))}
         </nav>
         
-        <div className="hidden md:flex items-center space-x-2 ml-auto">
+        {/* Desktop Actions: Search and Theme Toggle */}
+        <div className="hidden md:flex items-center space-x-2">
             <Button variant="ghost" size="icon" aria-label="Search" className="text-foreground/70 hover:text-primary">
                 <SearchIcon className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="text-foreground/70 hover:text-primary">
+            <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={toggleTheme} className="text-foreground/70 hover:text-primary">
                 {theme === 'dark' ? <ThemeIcon className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
         </div>
 
+        {/* Mobile Menu Toggle */}
         <div className="flex flex-1 items-center justify-end space-x-4 md:hidden">
+          <Button variant="ghost" size="icon" aria-label="Toggle theme" onClick={toggleTheme} className="text-foreground/70 hover:text-primary">
+            {theme === 'dark' ? <ThemeIcon className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -54,22 +80,20 @@ export default function Header() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="p-4">
-                <Link href="/" className="mb-8 flex items-center" aria-label={SITE_NAME}>
-                  <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm">
-                    FB
-                  </div>
-                  <span className="ml-3 font-semibold text-lg">{SITE_NAME}</span>
+            <SheetContent side="right" className="w-[300px] sm:w-[350px] p-0">
+              <div className="p-6 border-b">
+                <Link href="/" className="flex items-center" aria-label={SITE_NAME}>
+                  <span className="h-2.5 w-2.5 bg-primary rounded-full mr-2"></span>
+                  <span className="font-semibold text-xl">{SITE_NAME}</span>
                 </Link>
               </div>
-              <nav className="flex flex-col space-y-2 px-4">
+              <nav className="flex flex-col space-y-1 p-4">
                 {NAV_LINKS.map((link) => (
                   <SheetClose asChild key={link.href}>
                     <Link
                       href={link.href}
                       className={cn(
-                        'px-3 py-2 rounded-md transition-colors hover:bg-accent hover:text-accent-foreground flex items-center text-base',
+                        'px-3 py-2.5 rounded-md transition-colors hover:bg-accent hover:text-accent-foreground flex items-center text-base',
                         pathname === link.href ? 'bg-accent text-accent-foreground font-medium' : 'text-foreground'
                       )}
                     >
@@ -79,12 +103,6 @@ export default function Header() {
                   </SheetClose>
                 ))}
               </nav>
-               <div className="mt-8 px-4 border-t pt-4">
-                 <Button variant="ghost" className="w-full justify-start text-base" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                    {theme === 'dark' ? <ThemeIcon className="mr-3 h-5 w-5 text-primary" /> : <Moon className="mr-3 h-5 w-5 text-primary" />}
-                    Toggle Theme
-                </Button>
-               </div>
             </SheetContent>
           </Sheet>
         </div>
