@@ -16,21 +16,16 @@ export default function HeroSection() {
   return (
     <SectionWrapper className="!pt-20 md:!pt-28 relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col justify-center">
       <AnimatedGridPattern
-        numSquares={40} // Increased for better coverage
-        maxOpacity={0.07} // Softer effect
+        numSquares={40}
+        maxOpacity={0.07}
         duration={4}
         repeatDelay={0.5}
         className={cn(
-          "[mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]", // Adjusted mask for softer edges
-          "inset-0 h-full w-full skew-y-0", // Removed skew, ensure full coverage
-          "text-muted-foreground/30 dark:text-muted-foreground/20" // Color for squares
+          "[mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]",
+          "absolute inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 -z-10" // Ensure it's behind content and applies demo styles
         )}
-        gridCellClassName="bg-current" // Ensures squares take the text color
+        gridCellClassName="bg-current text-muted-foreground/30 dark:text-muted-foreground/20" 
       />
-      
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 mt-8 sm:mt-12 md:mt-16">
-         {/* Orb is visually between sub-headline and ask bar, but structurally can be here for absolute positioning */}
-      </div>
       
       <div className="relative z-10 flex flex-col items-center text-center">
         <div 
@@ -53,7 +48,6 @@ export default function HeroSection() {
           AI should be simple, not complicated. We help you start the right way and master AI in daily work-employees and leaders alike.
         </p>
         
-        {/* ParticleOrb is placed here so it appears after the sub-headline and before the ask bar */}
         <div 
             className="my-8 md:my-10 animate-fadeIn"
             style={{ animationDelay: '0.7s' }}

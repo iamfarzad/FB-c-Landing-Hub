@@ -16,7 +16,7 @@ interface HyperTextProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export const HyperText = React.forwardRef<
-  HTMLElement, // More generic for `as` prop
+  HTMLElement, 
   HyperTextProps
 >(
   (
@@ -33,7 +33,7 @@ export const HyperText = React.forwardRef<
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
-    const Tag = as as React.ElementType; // Cast to allow JSX rendering
+    const Tag = as as React.ElementType; 
 
     const letterVariants = {
       initial: { y: 0, opacity: 1 },
@@ -64,18 +64,14 @@ export const HyperText = React.forwardRef<
             key={`${letter}-${i}`}
             custom={i}
             variants={letterVariants}
-            className="inline-block" // Needed for individual letter transform
+            className="inline-block" 
           >
-            {letter === " " ? "\u00A0" : letter} {/* Preserve spaces */}
+            {letter === " " ? "\u00A0" : letter} 
           </motion.span>
         ));
       }
-      // If children is not a string, it might be a pre-styled ReactNode (e.g. for mixed colors)
-      // In this case, we wrap the whole node for the hover effect, but individual letter animation is lost.
-      // A more complex approach would involve traversing the children tree.
-      // For now, we'll animate the whole block if it's not a simple string.
+      
       if (React.isValidElement(children) && typeof children.type === 'string') {
-        // Attempt to animate direct string children of simple HTML tags
         const childNodes = React.Children.toArray(children.props.children);
         if(childNodes.every(node => typeof node === 'string' || (React.isValidElement(node) && typeof node.type === 'string' && typeof node.props.children === 'string'))) {
            return React.Children.map(children.props.children, (child, childIndex) => {
@@ -86,8 +82,7 @@ export const HyperText = React.forwardRef<
                  </motion.span>
                ));
              }
-             // For nested elements like <span>F.B/<span className="text-primary">c</span></span>
-             // We'll animate the text content of these spans if they are strings
+            
              if (React.isValidElement(child) && typeof child.props.children === 'string') {
                 const GrandChildTag = child.type as React.ElementType;
                 return (
@@ -104,7 +99,7 @@ export const HyperText = React.forwardRef<
            });
         }
       }
-      return children; // Fallback for very complex children or non-string content
+      return children; 
     };
     
 
@@ -119,7 +114,7 @@ export const HyperText = React.forwardRef<
         <motion.div
           animate={isHovered ? "hover" : "exit"}
           initial="initial"
-          className={cn("whitespace-nowrap flex items-center", textClassName)} // Use flex for proper alignment if children contains spans
+          className={cn("whitespace-nowrap flex items-center", textClassName)} 
         >
           {renderContent()}
         </motion.div>

@@ -2,7 +2,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Corrected import if it was 'motion/react'
 import React, { useEffect, useMemo, useState } from "react";
 
 interface AnimatedGridPatternProps {
@@ -29,12 +29,12 @@ export function AnimatedGridPattern({
   }, []);
 
   const squares = useMemo(() => {
-    if (!mounted) return []; // Avoid Math.random on server for consistency
+    if (!mounted) return []; 
     return Array.from({ length: numSquares }).map((_, i) => (
       <motion.div
         key={i}
         className={cn(
-          "rounded-md bg-current", // Squares will take the current text color
+          "rounded-md bg-current", 
           gridCellClassName,
         )}
         initial={{ opacity: 0 }}
@@ -42,13 +42,12 @@ export function AnimatedGridPattern({
           opacity: [0, Math.random() * maxOpacity, 0],
         }}
         transition={{
-          duration: duration + Math.random() * (duration / 2), // Randomize duration slightly
+          duration: duration + Math.random() * (duration / 2), 
           repeat: Infinity,
-          delay: Math.random() * repeatDelay + (i * 0.05), // Stagger start times
+          delay: Math.random() * repeatDelay + (i * 0.05), 
           ease: "easeInOut",
         }}
         style={{
-          // Randomize size for a more dynamic grid
           width: `${Math.random() * 1.5 + 0.5}rem`, 
           height: `${Math.random() * 1.5 + 0.5}rem`,
         }}
@@ -57,14 +56,13 @@ export function AnimatedGridPattern({
   }, [mounted, numSquares, maxOpacity, duration, repeatDelay, gridCellClassName]);
 
   if (!mounted) {
-    // Return null or a placeholder during SSR to prevent hydration errors
     return null;
   }
 
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden",
+        "pointer-events-none absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden", // Ensure overflow-hidden here or on parent
         className,
       )}
     >
