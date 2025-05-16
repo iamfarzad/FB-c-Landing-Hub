@@ -1,55 +1,74 @@
 
+'use client';
+
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SERVICES_LIST } from '@/lib/constants'; // Assuming SERVICES_LIST still has titles and descriptions
+import { SERVICES_LIST } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 export default function WhatIOfferSection() {
-  // Placeholder hints for isometric illustrations
   const illustrationHints = [
-    "isometric data network", // For AI Strategy Consulting
-    "isometric ai gears",    // For Custom AI Solutions
-    "isometric learning screen", // For AI Workshops & Training
-    "isometric data chart", // For Data Analytics & Insights
+    "isometric data network",
+    "isometric ai gears",
+    "isometric learning screen",
+    "isometric data chart",
   ];
 
   return (
-    <SectionWrapper id="what-i-offer" className="bg-slate-50">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold">What I Offer</h2>
-        <p className="text-lg text-muted-foreground mt-2">
+    <SectionWrapper id="what-i-offer" className="bg-slate-50 dark:bg-slate-800/30">
+      <div className="text-center mb-12 md:mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground">What I Offer</h2>
+        <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
           From custom internal copilots to hands-on AI training for your team.
         </p>
       </div>
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {SERVICES_LIST.map((service, index) => (
-          <Card key={service.title} className="flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden">
-            <div className="relative w-full h-48 bg-secondary/30"> {/* Added bg for consistency */}
+          <Card
+            key={service.title}
+            className={cn(
+              "flex flex-col bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group",
+              // Example of making some cards span more if desired in a more complex Bento
+              // index === 0 || index === 3 ? "md:col-span-1" : "md:col-span-1" 
+            )}
+          >
+            <div className="relative w-full h-48 sm:h-56 bg-secondary/30 group-hover:opacity-90 transition-opacity duration-300">
               <Image
-                src={`https://placehold.co/300x200.png`}
+                src={`https://placehold.co/400x300.png`} 
                 alt={`${service.title} isometric illustration`}
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint={illustrationHints[index % illustrationHints.length]} // Cycle through hints or assign specific ones
+                data-ai-hint={illustrationHints[index % illustrationHints.length]}
+                className="transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <CardHeader className="pt-6">
-              <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
+              <div className="flex items-center mb-2">
+                 {/* Re-adding the service icon for visual cue alongside the image */}
+                <service.icon className="h-7 w-7 text-primary mr-3 shrink-0" />
+                <CardTitle className="text-xl font-semibold text-foreground">{service.title}</CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="flex-grow">
-              <CardDescription className="text-sm">
-                {service.description /* Assuming description is still relevant from SERVICES_LIST */}
+              <CardDescription className="text-sm text-muted-foreground">
+                {service.description}
               </CardDescription>
             </CardContent>
             <div className="p-6 pt-2">
-              <Button variant="link" asChild className="p-0 text-primary hover:text-accent">
+              <Button variant="link" asChild className="p-0 text-primary hover:text-accent font-semibold">
                 <Link href="/services">See Services &rarr;</Link>
               </Button>
             </div>
           </Card>
         ))}
+      </div>
+       <div className="text-center mt-12 md:mt-16">
+        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3">
+          <Link href="/services">Explore All My Services</Link>
+        </Button>
       </div>
     </SectionWrapper>
   );

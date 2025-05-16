@@ -1,8 +1,13 @@
 
 import type { LucideIcon } from 'lucide-react';
-import { Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, Bot, Search, Sun, Sparkles, Briefcase, MessageSquare, LayoutDashboard, Lightbulb, BookOpen, Pencil, Users, Award, CalendarDays, CheckCircle } from 'lucide-react';
+import { 
+  Home, Info, Settings, Mail, Zap, Brain, Presentation, BarChart3, 
+  Bot, Search, Sun, Sparkles, Briefcase, MessageSquare, LayoutDashboard, 
+  Lightbulb, BookOpen, Pencil, Users, Award, CalendarDays, CheckCircle, 
+  X as CloseIcon, Code, GitBranch, LightbulbIcon, Target, TrendingUp, HelpCircle 
+} from 'lucide-react';
 
-export const SITE_NAME = "F.B/c"; // Ensure SITE_NAME is correct
+export const SITE_NAME = "F.B/c";
 export const SITE_DESCRIPTION = "AI Consulting & Workshops by Farzad Bayat";
 
 export type NavLink = {
@@ -25,43 +30,40 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
-// Service list definition
 export type Service = {
   title: string;
   description: string;
-  icon: LucideIcon;
-  details?: string[]; // Optional: for more detailed service pages
+  icon: LucideIcon; // Keeping icon for potential other uses
+  details?: string[];
 };
 
 export const SERVICES_LIST: Service[] = [
   {
     title: "AI Strategy Consulting",
-    description: "Develop a roadmap for AI integration to achieve your business goals.",
-    icon: Zap,
+    description: "Develop a roadmap for AI integration to achieve your business goals. We help define use cases, select tools, and plan implementation.",
+    icon: LightbulbIcon, // Changed from Zap
   },
   {
     title: "Custom AI Solutions",
-    description: "Bespoke AI model development tailored to your unique challenges.",
+    description: "Bespoke AI model development, including internal copilots, chatbots, and workflow automation tailored to your unique challenges.",
     icon: Brain,
   },
   {
-    title: "AI Workshops & Training",
-    description: "Empower your team with practical AI knowledge and skills.",
+    title: "Hands-On AI Training",
+    description: "Empower your team with practical AI knowledge and skills through interactive workshops covering ChatGPT, Claude, Gemini, and more.",
     icon: Presentation,
   },
   {
-    title: "Data Analytics & Insights",
-    description: "Unlock valuable insights from your data with advanced AI analytics.",
-    icon: BarChart3,
+    title: "AI for Data & Ops",
+    description: "Unlock valuable insights from your data and automate operational tasks with advanced AI analytics and workflow automation.",
+    icon: BarChart3, 
   },
 ];
 
-// Testimonials list definition
 export type Testimonial = {
   name: string;
   company: string;
   quote: string;
-  // avatarUrl?: string; // Optional
 };
 
 export const TESTIMONIALS_LIST: Testimonial[] = [
@@ -82,7 +84,6 @@ export const TESTIMONIALS_LIST: Testimonial[] = [
   },
 ];
 
-// Case studies list definition
 export type CaseStudy = {
   id: string;
   title: string;
@@ -102,14 +103,6 @@ export const CASE_STUDIES_LIST: CaseStudy[] = [
     summary: 'Implemented an ML model that increased sales forecast accuracy by 25%, leading to optimized inventory and reduced holding costs.',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'ecommerce analytics',
-    client: 'Global E-commerce Retailer',
-    challenge: 'Inaccurate sales forecasting leading to overstocking and stockouts.',
-    solution: 'Developed a custom time-series forecasting model using machine learning, incorporating historical sales data, promotional events, and seasonality.',
-    results: [
-      '25% improvement in forecast accuracy.',
-      '15% reduction in inventory holding costs.',
-      '10% decrease in stockout incidents.'
-    ]
   },
   {
     id: 'nlp-customer-support',
@@ -117,14 +110,6 @@ export const CASE_STUDIES_LIST: CaseStudy[] = [
     summary: 'Deployed an AI chatbot that handles 70% of Tier-1 customer inquiries, significantly improving response times and agent productivity.',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'chatbot support',
-    client: 'SaaS Provider',
-    challenge: 'High volume of repetitive customer inquiries overwhelming the support team.',
-    solution: 'Built and trained an NLP-based chatbot integrated with the existing knowledge base to provide instant answers to common questions.',
-    results: [
-      '70% of Tier-1 inquiries automated.',
-      '50% reduction in average response time.',
-      '30% increase in customer support agent capacity for complex issues.'
-    ]
   },
   {
     id: 'cv-defect-detection',
@@ -132,25 +117,14 @@ export const CASE_STUDIES_LIST: CaseStudy[] = [
     summary: 'Developed a computer vision system that identified product defects in real-time, decreasing waste by 20% and enhancing quality control.',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'industrial manufacturing',
-    client: 'Automotive Parts Manufacturer',
-    challenge: 'Manual defect detection was slow, error-prone, and costly.',
-    solution: 'Implemented a real-time computer vision system on the assembly line using deep learning models to identify and flag defective parts.',
-    results: [
-      '99.5% defect detection accuracy.',
-      '20% reduction in material waste.',
-      'Improved overall product quality and consistency.'
-    ]
   }
 ];
 
+export const CHATBOT_ICON = Bot; // Changed from MessageSquarePlus which isn't standard
+export const SEARCH_ICON = Search;
+export const THEME_ICON = Sun;
+export { Zap, Brain, Presentation, BarChart3, Bot as FB_BotIcon, Search as FB_SearchIcon, Sun as FB_SunIcon, Sparkles as FB_SparklesIcon, Briefcase, MessageSquare, LayoutDashboard, Lightbulb as FB_LightbulbIcon, BookOpen as FB_BookOpenIcon, Pencil, Users, Award, CalendarDays, CheckCircle, Info as FB_InfoIcon, Mail as FB_MailIcon, Home as FB_HomeIcon, Settings as FB_SettingsIcon };
 
-// For DockDemo example if needed elsewhere, but primary nav uses NAV_LINKS
-export const DOCK_DEMO_NAVBAR_ITEMS = [
-    { href: "#", icon: Home, label: "Home" },
-    { href: "#", icon: Pencil, label: "Blog" },
-];
-
-export const CHATBOT_ICON = Bot;
-export const SEARCH_ICON = Search; // Keep SEARCH_ICON if you plan to add it to the dock
-export const THEME_ICON = Sun;   // Keep THEME_ICON if you plan to add it to the dock
-export { Sparkles, Presentation, Users, Award, CalendarDays, CheckCircle, Briefcase, MessageSquare, LayoutDashboard, Lightbulb, BookOpen, Pencil, Zap, Brain, BarChart3 };
+// Ensure all icons referenced in NAV_LINKS are exported if they are used directly by name elsewhere.
+// The ones like Home, Info, Settings, Mail are directly from lucide-react and fine.
+// WORKSHOPS_ICON, RECOMMENDATIONS_ICON, AI_DEMO_ICON are aliases.

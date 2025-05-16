@@ -1,19 +1,24 @@
+
 import HeroSection from '@/components/landing/HeroSection';
-import ServicesHighlight from '@/components/landing/ServicesHighlight';
-import TestimonialsSection from '@/components/landing/TestimonialsSection';
-import CaseStudiesPreview from '@/components/landing/CaseStudiesPreview';
-import WorkshopCTA from '@/components/landing/WorkshopCTA';
-import ContactFormSection from '@/components/landing/ContactFormSection';
+import WhyWorkWithMeSection from '@/components/home/WhyWorkWithMeSection';
+import WhatIOfferSection from '@/components/home/WhatIOfferSection';
+import FreeWorkshopCtaSection from '@/components/home/FreeWorkshopCtaSection';
+import LiveDemoProofSection from '@/components/home/LiveDemoProofSection';
+import ResultsSection from '@/components/home/ResultsSection';
+import FinalCtaSection from '@/components/home/FinalCtaSection';
+// Removed ServicesHighlight, TestimonialsSection, CaseStudiesPreview, WorkshopCTA, ContactFormSection
+// as their content should now be covered by the new sections from docs/1_home.md
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServicesHighlight />
-      <TestimonialsSection />
-      <CaseStudiesPreview />
-      <WorkshopCTA />
-      <ContactFormSection />
+      <WhyWorkWithMeSection />
+      <WhatIOfferSection />
+      <FreeWorkshopCtaSection />
+      <LiveDemoProofSection />
+      <ResultsSection />
+      <FinalCtaSection />
     </>
   );
 }
