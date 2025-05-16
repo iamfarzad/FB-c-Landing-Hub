@@ -8,21 +8,21 @@ const resultsData = [
     icon: Clock,
     title: "Response time dropped 65%",
     description: "with a custom chatbot",
-    bgColor: "bg-sky-100 dark:bg-sky-900/50", // Adjusted for better dark mode
+    bgColor: "bg-sky-100 dark:bg-sky-900/50",
     iconColor: "text-sky-500 dark:text-sky-400",
   },
   {
     icon: TrendingUp,
     title: "Conversion rates up 40%",
     description: "after implementing AI insights",
-    bgColor: "bg-green-100 dark:bg-green-900/50", // Adjusted for better dark mode
+    bgColor: "bg-green-100 dark:bg-green-900/50",
     iconColor: "text-green-500 dark:text-green-400",
   },
   {
     icon: Zap,
     title: "Financial reports in 30 seconds",
     description: "that previously took 3 days",
-    bgColor: "bg-amber-100 dark:bg-amber-900/50", // Adjusted for better dark mode
+    bgColor: "bg-amber-100 dark:bg-amber-900/50",
     iconColor: "text-amber-500 dark:text-amber-400",
   },
 ];
@@ -42,7 +42,7 @@ export default function ResultsSection() {
         {resultsData.map((result) => (
           <Card 
             key={result.title} 
-            className="shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col text-center group hover:scale-105 hover:border-primary/50 border border-transparent"
+            className="bg-card border border-border rounded-lg shadow-md hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col text-center group hover:scale-105"
           >
             <CardHeader className="pb-4 items-center">
               <div className={`p-4 rounded-full w-fit mb-4 ${result.bgColor} group-hover:ring-4 group-hover:ring-primary/30 ring-offset-2 ring-offset-background transition-all duration-300`}>
