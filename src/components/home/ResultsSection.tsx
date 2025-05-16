@@ -1,35 +1,35 @@
 
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { TrendingUp, Clock, CheckCircle, Zap, LineChart } from 'lucide-react'; // Added Zap and LineChart as potential icons
+import { TrendingUp, Clock, Zap } from 'lucide-react';
 
 const resultsData = [
   {
     icon: Clock,
     title: "Response time dropped 65%",
     description: "with a custom chatbot",
-    bgColor: "bg-sky-100 dark:bg-sky-900",
-    iconColor: "text-sky-500",
+    bgColor: "bg-sky-100 dark:bg-sky-900/50", // Adjusted for better dark mode
+    iconColor: "text-sky-500 dark:text-sky-400",
   },
   {
-    icon: TrendingUp, // Changed from a generic CheckCircle to be more descriptive
+    icon: TrendingUp,
     title: "Conversion rates up 40%",
     description: "after implementing AI insights",
-    bgColor: "bg-green-100 dark:bg-green-900",
-    iconColor: "text-green-500",
+    bgColor: "bg-green-100 dark:bg-green-900/50", // Adjusted for better dark mode
+    iconColor: "text-green-500 dark:text-green-400",
   },
   {
-    icon: Zap, // Changed from a generic CheckCircle
+    icon: Zap,
     title: "Financial reports in 30 seconds",
-    description: "that took 3 days",
-    bgColor: "bg-amber-100 dark:bg-amber-900",
-    iconColor: "text-amber-500",
+    description: "that previously took 3 days",
+    bgColor: "bg-amber-100 dark:bg-amber-900/50", // Adjusted for better dark mode
+    iconColor: "text-amber-500 dark:text-amber-400",
   },
 ];
 
 export default function ResultsSection() {
   return (
-    <SectionWrapper id="results" className="bg-slate-50 dark:bg-slate-800/30">
+    <SectionWrapper id="results" className="bg-slate-50 dark:bg-background">
       <div className="text-center mb-12 md:mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground">
           Results From Real Projects
@@ -42,13 +42,13 @@ export default function ResultsSection() {
         {resultsData.map((result) => (
           <Card 
             key={result.title} 
-            className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col text-center group hover:scale-105"
+            className="shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col text-center group hover:scale-105 hover:border-primary/50 border border-transparent"
           >
-            <CardHeader className="pb-4">
-              <div className={`mx-auto p-4 rounded-full w-fit mb-4 ${result.bgColor} group-hover:ring-4 group-hover:ring-offset-2 ring-primary/30 transition-all`}>
+            <CardHeader className="pb-4 items-center">
+              <div className={`p-4 rounded-full w-fit mb-4 ${result.bgColor} group-hover:ring-4 group-hover:ring-primary/30 ring-offset-2 ring-offset-background transition-all duration-300`}>
                 <result.icon className={`h-10 w-10 ${result.iconColor}`} />
               </div>
-              <CardTitle className="text-xl font-semibold text-foreground">{result.title}</CardTitle>
+              <CardTitle className="text-xl lg:text-2xl font-semibold text-foreground">{result.title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
               <CardDescription className="text-muted-foreground">{result.description}</CardDescription>
