@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SERVICES_LIST } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { CheckCircle } from 'lucide-react'; // Added CheckCircle to imports
 
 export default function WhatIOfferSection() {
   const illustrationHints = [
@@ -30,14 +31,12 @@ export default function WhatIOfferSection() {
           <Card
             key={service.title}
             className={cn(
-              "flex flex-col bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group",
-              // Example of making some cards span more if desired in a more complex Bento
-              // index === 0 || index === 3 ? "md:col-span-1" : "md:col-span-1" 
+              "flex flex-col bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group hover:scale-105"
             )}
           >
             <div className="relative w-full h-48 sm:h-56 bg-secondary/30 group-hover:opacity-90 transition-opacity duration-300">
               <Image
-                src={`https://placehold.co/400x300.png`} 
+                src={`https://placehold.co/400x300.png`}
                 alt={`${service.title} isometric illustration`}
                 layout="fill"
                 objectFit="cover"
@@ -47,7 +46,6 @@ export default function WhatIOfferSection() {
             </div>
             <CardHeader className="pt-6">
               <div className="flex items-center mb-2">
-                 {/* Re-adding the service icon for visual cue alongside the image */}
                 <service.icon className="h-7 w-7 text-primary mr-3 shrink-0" />
                 <CardTitle className="text-xl font-semibold text-foreground">{service.title}</CardTitle>
               </div>
@@ -56,6 +54,14 @@ export default function WhatIOfferSection() {
               <CardDescription className="text-sm text-muted-foreground">
                 {service.description}
               </CardDescription>
+              <ul className="mt-4 space-y-1 text-xs text-muted-foreground/80">
+                {(service.details || ['Custom internal copilots and chatbots', 'Workflow and data automation', 'Private/local AI models for sensitive business logic']).slice(0,2).map(detail => (
+                    <li key={detail} className="flex items-start">
+                        <CheckCircle className="h-3.5 w-3.5 text-primary/70 mr-2 mt-0.5 shrink-0" />
+                        <span>{detail}</span>
+                    </li>
+                ))}
+              </ul>
             </CardContent>
             <div className="p-6 pt-2">
               <Button variant="link" asChild className="p-0 text-primary hover:text-accent font-semibold">

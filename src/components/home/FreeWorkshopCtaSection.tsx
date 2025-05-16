@@ -26,21 +26,21 @@ export default function FreeWorkshopCtaSection() {
               <ul className="space-y-3 text-muted-foreground text-base md:text-lg">
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span>Understand what AI can (and importantly, can't) realistically do for your specific business needs.</span>
+                  <span>Learn what AI can (and can't) do for your business.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span>Automate one real, tangible task using powerful tools like ChatGPT or Claude during the session.</span>
+                  <span>Automate one real task using ChatGPT or Claude.</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span>Experience a practical, no-slides approach focused on live demonstrations and working examples.</span>
+                  <span>No slides, no fluff. Just working examples.</span>
                 </li>
               </ul>
             </div>
             <div className="text-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
-                <Link href="/workshop">Join Free Workshop &rarr;</Link>
+                <Link href="/workshops">Join Free Workshop &rarr;</Link>
               </Button>
             </div>
           </CardContent>
