@@ -17,21 +17,21 @@ import {
 import { cn } from "@/lib/utils";
 import { NAV_LINKS, SITE_NAME, SEARCH_ICON } from '@/lib/constants';
 import { Dock, DockIcon } from "@/registry/magicui/dock";
-// HyperText is no longer used for the logo text, but might be used elsewhere or if user reverts
-import { HyperText } from "@/registry/magicui/hyper-text"; 
+import { HyperText } from "@/registry/magicui/hyper-text";
 import { Menu } from "lucide-react";
 
-// Site Logo Component - positioned on the far left
+// Site Logo Component
 const SiteLogo = () => (
   <Link
     href="/"
-    aria-label={SITE_NAME} // SITE_NAME is "F.B/c", this remains for accessibility
-    className="flex items-center gap-2 text-md font-semibold text-foreground hover:text-primary transition-colors"
+    aria-label={SITE_NAME}
+    className="flex items-center gap-2 text-md font-semibold text-foreground transition-colors"
   >
-    {/* Pulsing Orange Dot */}
     <span className="h-2 w-2 bg-primary rounded-full animate-pulse shrink-0"></span>
-    {/* Changed text as per user instruction */}
-    <span className="text-md font-semibold">Glowing node here</span>
+    <HyperText textClassName="hover:text-primary transition-colors">
+      {SITE_NAME.substring(0, SITE_NAME.lastIndexOf('/') + 1)}
+      <span className="text-primary">{SITE_NAME.substring(SITE_NAME.lastIndexOf('/') + 1)}</span>
+    </HyperText>
   </Link>
 );
 
@@ -44,14 +44,13 @@ export default function Header() {
     setMounted(true);
   }, []);
 
-  // Basic placeholder for mobile to avoid layout shifts if !mounted
+  // Mobile placeholder
   if (!mounted && typeof window !== "undefined" && window.innerWidth < 768) {
     return (
       <header className="fixed top-0 left-0 right-0 z-50 flex md:hidden items-center justify-between p-4 h-16 bg-background/90 backdrop-blur-md border-b">
         <div className="flex items-center gap-2 text-md font-semibold">
            <span className="h-2 w-2 bg-muted rounded-full"></span>
-           {/* Adjusted placeholder text to match new logo text */}
-           <span className="w-32 h-5 bg-muted rounded"></span> {/* Approx width for "Glowing node here" */}
+           <span className="w-20 h-5 bg-muted rounded">F.B/c</span>
         </div>
         <Button variant="ghost" size="icon" disabled>
           <Menu className="size-6" />
@@ -60,19 +59,21 @@ export default function Header() {
     );
   }
   
-  // Placeholder for desktop if !mounted (Dock might cause issues server-side)
+  // Desktop placeholder - only used if !mounted
   if (!mounted && typeof window !== "undefined" && window.innerWidth >= 768) {
      return (
       <header className="fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between p-4 h-16 bg-background/70 backdrop-blur-md">
+        {/* Placeholder for SiteLogo */}
         <div className="flex items-center gap-2 text-md font-semibold">
            <span className="h-2 w-2 bg-muted rounded-full"></span>
-           <span className="w-32 h-5 bg-muted rounded"></span>
+           <span className="w-20 h-5 bg-muted rounded">F.B/c</span>
         </div>
-        <div className="h-10 w-72 bg-muted rounded-full"></div> {/* Approx width for dock */}
-        {/* Spacer for desktop placeholder */}
+        {/* Placeholder for Dock */}
+        <div className="h-10 w-72 bg-muted rounded-full mx-auto"></div>
+        {/* Spacer for balance */}
         <div style={{ visibility: 'hidden' }} className="flex items-center gap-2 text-md font-semibold"> 
           <span className="h-2 w-2 bg-muted rounded-full"></span>
-          <span className="w-32 h-5 bg-muted rounded"></span>
+          <span className="w-20 h-5 bg-muted rounded">F.B/c</span>
         </div>
       </header>
      );
@@ -83,20 +84,20 @@ export default function Header() {
     <>
       {/* Desktop Header */}
       <header className="fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between p-4 h-16">
-        <div className="flex-shrink-0">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2">
           <SiteLogo />
         </div>
         
-        {mounted && ( // Only render Dock on client after mount
+        {mounted && (
           <TooltipProvider delayDuration={0}>
             <Dock
               direction="top"
               magnification={8} 
               distance={40}     
-              className="!h-12 py-1 px-2 bg-card/80 backdrop-blur-lg border border-border shadow-md mx-auto" 
+              className="!h-14 py-2 px-3 bg-card/80 backdrop-blur-lg border border-border shadow-md mx-auto"
             >
               {NAV_LINKS.map((item) => (
-                <DockIcon key={item.label} className="size-9"> 
+                <DockIcon key={item.label} className="size-10"> 
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link
@@ -104,12 +105,12 @@ export default function Header() {
                         aria-label={item.label}
                         className={cn(
                           buttonVariants({ variant: "ghost", size: "icon" }),
-                          "size-8 rounded-full", 
+                          "size-10 rounded-full", 
                           (pathname === item.href || (pathname === "/" && item.href === "/")) &&
                           "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                         )}
                       >
-                        <item.icon className="size-4" /> 
+                        <item.icon className="size-5" /> 
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
@@ -121,11 +122,11 @@ export default function Header() {
 
               <Separator orientation="vertical" className="h-full mx-0.5" />
 
-              <DockIcon className="size-9">
+              <DockIcon className="size-10">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" className="size-8 rounded-full">
-                      <SEARCH_ICON className="size-4" />
+                    <Button variant="ghost" size="icon" className="size-10 rounded-full">
+                      <SEARCH_ICON className="size-5" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
@@ -134,10 +135,10 @@ export default function Header() {
                 </Tooltip>
               </DockIcon>
 
-              <DockIcon className="size-9">
+              <DockIcon className="size-10">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <ModeToggle className="rounded-full size-8" variant="ghost" size="icon"/>
+                    <ModeToggle className="rounded-full size-10" variant="ghost" size="icon"/>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
                     <p>Toggle Theme</p>
@@ -148,16 +149,15 @@ export default function Header() {
           </TooltipProvider>
         )}
 
-        {/* Invisible spacer to balance the logo and help center the dock */}
-        {/* It should roughly match the visual width of the SiteLogo */}
-        <div style={{ visibility: 'hidden' }} className="flex-shrink-0">
-            <SiteLogo />
-        </div>
+        {/* Invisible spacer only needed if Dock isn't absolutely positioned or fixed for centering itself */}
+        {/* <div style={{ visibility: 'hidden' }} className="flex-shrink-0 w-20"> {/* Adjust width to match SiteLogo roughly */}
+          {/* <SiteLogo /> */} {/* Or a div with similar width */}
+        {/*</div> */}
       </header>
 
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 z-50 flex md:hidden items-center justify-between p-4 h-16 bg-background/90 backdrop-blur-md border-b">
-        <SiteLogo /> {/* Also updated for mobile view consistency */}
+        <SiteLogo />
         <Button variant="ghost" size="icon">
           <Menu className="size-6" />
           <span className="sr-only">Open menu</span>
@@ -166,4 +166,3 @@ export default function Header() {
     </>
   );
 }
-
