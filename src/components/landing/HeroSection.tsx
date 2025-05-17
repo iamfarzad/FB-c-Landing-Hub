@@ -5,7 +5,7 @@ import SectionWrapper from '@/components/shared/SectionWrapper';
 import { ArrowRight } from 'lucide-react';
 import { ParticleOrb } from './ParticleOrb';
 import { chatEventBus, OPEN_CHAT_EVENT } from '@/lib/event-bus';
-import { AnimatedGridPattern } from "@/registry/magicui/animated-grid-pattern";
+// Removed AnimatedGridPattern import
 import { cn } from '@/lib/utils';
 
 export default function HeroSection() {
@@ -15,17 +15,7 @@ export default function HeroSection() {
 
   return (
     <SectionWrapper className="!pt-20 md:!pt-28 relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col justify-center">
-      <AnimatedGridPattern
-        numSquares={40}
-        maxOpacity={0.07}
-        duration={4}
-        repeatDelay={0.5}
-        className={cn(
-          "[mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]",
-          "absolute inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 -z-10" // Ensure it's behind content and applies demo styles
-        )}
-        gridCellClassName="bg-current text-muted-foreground/30 dark:text-muted-foreground/20" 
-      />
+      {/* AnimatedGridPattern removed from here, global background will show */}
       
       <div className="relative z-10 flex flex-col items-center text-center">
         <div 
@@ -68,9 +58,9 @@ export default function HeroSection() {
         </button>
 
         <Button 
-          variant="secondary" 
+          variant="default" 
           size="lg" 
-          className="rounded-full bg-muted/70 hover:bg-muted/90 text-foreground shadow-md px-8 animate-fadeIn"
+          className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md px-8 animate-fadeIn"
           style={{ animationDelay: '1.0s' }}
         >
             Book Free Call
