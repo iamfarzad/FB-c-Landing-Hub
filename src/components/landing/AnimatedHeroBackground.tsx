@@ -2,64 +2,85 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const AnimatedHeroBackground = () => {
-  const numLayers = 5; // Number of overlapping gradient layers
-  const numTextElements = 10; // Number of floating text elements
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Render a fallback or null during SSR to avoid hydration mismatch if needed,
+    // though for a purely decorative background, returning null might be fine.
+    return null;
+  }
+
+  const numLayers = 4; // Reduced for simplicity, can increase later
+  const numTextElements = 6; // Reduced for simplicity
 
   const textSnippets = [
-    "λ", "Σ", "ƒ(x)", "01", "AI", "data", "β", "∂", "∫", "<>", "||", "&&", "∴", "∵"
+    "λ", "Σ", "ƒ(x)", "01", "AI", "data", "β", "∂", "∫", "<>", "∴"
   ];
 
   return (
-    <div className="absolute inset-0 overflow-hidden -z-10 bg-background">
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-background">
+      {/* Base subtle gradient to ensure some color if layers are too transparent */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(ellipse at center, oklch(var(--brand-orange) / 0.03) 0%, oklch(var(--background) / 0) 70%)`,
+        }}
+      />
       {Array.from({ length: numLayers }).map((_, i) => (
         <motion.div
           key={`layer-${i}`}
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at ${Math.random() * 100}% ${Math.random() * 100}%, oklch(var(--brand-orange) / ${0.05 + Math.random() * 0.1}) ${i * 10}%, oklch(var(--background) / 0) ${60 + i * 10}%)`,
+            backgroundImage: `radial-gradient(ellipse at ${Math.random() * 100}% ${Math.random() * 100}%, oklch(var(--brand-orange) / ${0.04 + Math.random() * 0.08}) ${i * 15}%, oklch(var(--background) / 0) ${65 + i * 5}%)`,
+            filter: 'blur(60px)', // Increased blur for softer effect
           }}
           animate={{
-            x: [`${Math.random() * 40 - 20}%`, `${Math.random() * 40 - 20}%`],
-            y: [`${Math.random() * 40 - 20}%`, `${Math.random() * 40 - 20}%`],
-            scale: [1, 1.05 + Math.random() * 0.1, 1],
-            opacity: [0.3 + Math.random() * 0.3, 0.5 + Math.random() * 0.3, 0.3 + Math.random() * 0.3],
+            x: [`${Math.random() * 30 - 15}vw`, `${Math.random() * 30 - 15}vw`],
+            y: [`${Math.random() * 30 - 15}vh`, `${Math.random() * 30 - 15}vh`],
+            scale: [1, 1.03 + Math.random() * 0.1, 1],
+            opacity: [0.2 + Math.random() * 0.2, 0.4 + Math.random() * 0.2, 0.2 + Math.random() * 0.2],
           }}
           transition={{
-            duration: 15 + Math.random() * 10,
+            duration: 18 + Math.random() * 10,
             repeat: Infinity,
             repeatType: 'mirror',
             ease: 'easeInOut',
-            delay: i * 2,
+            delay: i * 1.5,
           }}
         />
       ))}
-      {/* Blurred overlay for softer look */}
-      <div className="absolute inset-0 backdrop-blur-lg md:backdrop-blur-xl"></div>
+      {/* Soft overlay to blend layers */}
+      <div className="absolute inset-0 bg-background/30 dark:bg-background/60 backdrop-blur-sm"></div>
 
-      {/* Floating text snippets */}
       {Array.from({ length: numTextElements }).map((_, i) => (
         <motion.span
           key={`text-${i}`}
-          className="absolute font-mono text-xs text-foreground/30 dark:text-foreground/20 select-none"
+          className="absolute font-mono text-xs text-foreground/10 dark:text-foreground/5 select-none"
           style={{
-            left: `${Math.random() * 90 + 5}%`, // Keep within bounds
+            left: `${Math.random() * 90 + 5}%`,
             top: `${Math.random() * 90 + 5}%`,
+            opacity: 0, // Start with opacity 0
           }}
           animate={{
-            x: [`${Math.random() * 20 - 10}px`, `${Math.random() * 60 - 30}px`, `${Math.random() * 20 - 10}px`],
-            y: [`${Math.random() * 20 - 10}px`, `${Math.random() * 60 - 30}px`, `${Math.random() * 20 - 10}px`],
-            opacity: [0, 0.3 + Math.random() * 0.3, 0],
-            scale: [0.8, 1 + Math.random() * 0.2, 0.8],
+            x: [`${Math.random() * 30 - 15}px`, `${Math.random() * 70 - 35}px`, `${Math.random() * 30 - 15}px`],
+            y: [`${Math.random() * 30 - 15}px`, `${Math.random() * 70 - 35}px`, `${Math.random() * 30 - 15}px`],
+            opacity: [0, 0.1 + Math.random() * 0.1, 0],
+            scale: [0.7, 1 + Math.random() * 0.1, 0.7],
           }}
           transition={{
-            duration: 20 + Math.random() * 15,
+            duration: 25 + Math.random() * 15,
             repeat: Infinity,
             repeatType: 'mirror',
-            ease: 'easeInOut',
-            delay: i * 1.5 + Math.random() * 5,
+            ease: 'circInOut', // Changed easing for a different feel
+            delay: i * 2 + Math.random() * 6,
           }}
         >
           {textSnippets[Math.floor(Math.random() * textSnippets.length)]}
