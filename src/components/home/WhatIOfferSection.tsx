@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SERVICES_LIST } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { CheckCircle } from 'lucide-react'; // Added CheckCircle to imports
+import { CheckCircle } from 'lucide-react';
 
 export default function WhatIOfferSection() {
   const illustrationHints = [
@@ -19,7 +19,7 @@ export default function WhatIOfferSection() {
   ];
 
   return (
-    <SectionWrapper id="what-i-offer" className="bg-slate-50 dark:bg-slate-800/30">
+    <SectionWrapper id="what-i-offer" className="bg-slate-50 dark:bg-background">
       <div className="text-center mb-12 md:mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground">What I Offer</h2>
         <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
@@ -31,22 +31,21 @@ export default function WhatIOfferSection() {
           <Card
             key={service.title}
             className={cn(
-              "flex flex-col bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group hover:scale-105"
+              "flex flex-col bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden group hover:scale-105 dark:border-neutral-700/60 dark:hover:shadow-[0_0_25px_-5px_var(--primary)] dark:hover:border-primary/70"
             )}
           >
-            <div className="relative w-full h-48 sm:h-56 bg-secondary/30 group-hover:opacity-90 transition-opacity duration-300">
+            <div className="relative w-full h-48 sm:h-56 group-hover:opacity-90 transition-opacity duration-300">
               <Image
                 src={`https://placehold.co/400x300.png`}
                 alt={`${service.title} isometric illustration`}
-                layout="fill"
-                objectFit="cover"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={illustrationHints[index % illustrationHints.length]}
-                className="transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <CardHeader className="pt-6">
               <div className="flex items-center mb-2">
-                <service.icon className="h-7 w-7 text-primary mr-3 shrink-0" />
+                <service.icon className="h-10 w-10 text-primary mr-3 shrink-0" />
                 <CardTitle className="text-xl font-semibold text-foreground">{service.title}</CardTitle>
               </div>
             </CardHeader>

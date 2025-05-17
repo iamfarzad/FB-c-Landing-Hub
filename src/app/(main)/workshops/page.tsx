@@ -1,3 +1,4 @@
+
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -56,9 +57,8 @@ export default function WorkshopsPage() {
                 <Image
                   src={workshop.imageUrl}
                   alt={workshop.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-lg"
+                  fill
+                  className="object-cover rounded-t-lg"
                   data-ai-hint={workshop.dataAiHint}
                 />
               </div>

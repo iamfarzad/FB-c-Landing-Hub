@@ -1,3 +1,4 @@
+
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Brain, Lightbulb, Users } from 'lucide-react';
@@ -21,8 +22,8 @@ export default function AboutPage() {
              <Image 
               src="https://placehold.co/600x450.png" 
               alt="Farzad Bayat" 
-              layout="fill"
-              objectFit="cover"
+              fill
+              className="object-cover"
               data-ai-hint="professional portrait"
             />
           </div>
