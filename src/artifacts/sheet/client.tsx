@@ -1,12 +1,12 @@
-import { Artifact } from '@/components/create-artifact';
+import { Artifact } from '@/components/ai-chat/create-artifact';
 import {
   CopyIcon,
   LineChartIcon,
   RedoIcon,
   SparklesIcon,
   UndoIcon,
-} from '@/components/icons';
-import { SpreadsheetEditor } from '@/components/sheet-editor';
+} from '@/components/ai-chat/icons';
+import { SpreadsheetEditor } from '@/components/ai-chat/sheet-editor';
 import { parse, unparse } from 'papaparse';
 import { toast } from 'sonner';
 

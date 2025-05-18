@@ -4,7 +4,7 @@ import type { Attachment, UIMessage } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { ChatHeader } from '@/components/chat-header';
+import { ChatHeader } from '@/components/ai-chat/chat-header';
 import type { Vote } from '@/lib/db/schema';
 import { fetcher, fetchWithErrorHandlers, generateUUID } from '@/lib/utils';
 import { Artifact } from './artifact';
@@ -19,7 +19,7 @@ import type { Session } from 'next-auth';
 import { useSearchParams } from 'next/navigation';
 import { useChatVisibility } from '@/hooks/use-chat-visibility';
 import { useAutoResume } from '@/hooks/use-auto-resume';
-import { ChatSDKError } from '@/lib/errors';
+import { ChatSDKError } from '@/lib/ai/errors';
 
 export function Chat({
   id,

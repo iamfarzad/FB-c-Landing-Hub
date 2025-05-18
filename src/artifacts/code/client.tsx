@@ -1,5 +1,5 @@
-import { Artifact } from '@/components/create-artifact';
-import { CodeEditor } from '@/components/code-editor';
+import { Artifact } from '@/components/ai-chat/create-artifact';
+import { CodeEditor } from '@/components/ai-chat/code-editor';
 import {
   CopyIcon,
   LogsIcon,
@@ -7,14 +7,14 @@ import {
   PlayIcon,
   RedoIcon,
   UndoIcon,
-} from '@/components/icons';
+} from '@/components/ai-chat/icons';
 import { toast } from 'sonner';
 import { generateUUID } from '@/lib/utils';
 import {
   Console,
   ConsoleOutput,
   ConsoleOutputContent,
-} from '@/components/console';
+} from '@/components/ai-chat/console';
 
 const OUTPUT_HANDLERS = {
   matplotlib: `

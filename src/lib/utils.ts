@@ -11,3 +11,33 @@ export function generateUUID(): string {
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
   );
 }
+export async function fetcher(input: RequestInfo, init?: RequestInit) {
+  const res = await fetch(input, init);
+  if (!res.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    (error as any).status = res.status;
+    throw error;
+  }
+  return res.json();
+}
+
+export async function fetchWithErrorHandlers(input: RequestInfo, init?: RequestInit) {
+  const res = await fetch(input, init);
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data?.message || 'An error occurred.');
+  }
+  return data;
+}
+
+export function sanitizeText(text: string): string {
+  return text.replace(/^\s+|\s+$/g, '');
+}
+
+export function getDocumentTimestampByIndex<T extends { createdAt?: string }>(
+  documents: T[],
+  index: number
+): string {
+  const doc = documents?.[index];
+  return doc?.createdAt ?? '';
+}

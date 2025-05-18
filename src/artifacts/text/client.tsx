@@ -1,7 +1,7 @@
-import { Artifact } from '@/components/create-artifact';
-import { DiffView } from '@/components/diffview';
-import { DocumentSkeleton } from '@/components/document-skeleton';
-import { Editor } from '@/components/text-editor';
+import { Artifact } from '@/components/ai-chat/create-artifact';
+import { DiffView } from '@/components/ai-chat/diffview';
+import { DocumentSkeleton } from '@/components/ai-chat/document-skeleton';
+import { Editor } from '@/components/ai-chat/text-editor';
 import {
   ClockRewind,
   CopyIcon,
@@ -9,7 +9,7 @@ import {
   PenIcon,
   RedoIcon,
   UndoIcon,
-} from '@/components/icons';
+} from '@/components/ai-chat/icons';
 import { Suggestion } from '@/lib/db/schema';
 import { toast } from 'sonner';
 import { getSuggestions } from '../actions';
